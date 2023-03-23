@@ -33,19 +33,26 @@ class MyJWT{
           static::base64url_encode($payload) . '.' .
           static::base64url_encode($signature);
   }
-  public static function decode(string $token, string $secret): array
+  public static function decode(string $token, string $secret)
     {
-        $token = explode('.', $token);
-        $header = static::base64_decode_url($token[0]);
-        $payload = static::base64_decode_url($token[1]);
- 
-        $signature = static::base64_decode_url($token[2]);
- 
-        $header_payload = $token[0] . '.' . $token[1];
- 
-        if (hash_hmac('sha256', $header_payload, $secret, true) !== $signature) {
-            throw new \Exception('Invalid signature');
+        if(str_contains($token, '.')){
+            $token = explode('.', $token);
+            if(count($token) != 3){
+                return false;
+            }
+            $header = static::base64_decode_url($token[0]);
+            $payload = static::base64_decode_url($token[1]);
+     
+            $signature = static::base64_decode_url($token[2]);
+     
+            $header_payload = $token[0] . '.' . $token[1];
+     
+            if (hash_hmac('sha256', $header_payload, $secret, true) !== $signature) {
+                return false;
+            }
+            return json_decode($payload, true);
+        }else{
+            return false;
         }
-        return json_decode($payload, true);
     }
 }
