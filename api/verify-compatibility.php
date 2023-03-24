@@ -3,51 +3,28 @@
 require 'jwt/senha.php';
 require 'jwt/token.php';
 require 'db/index.php';
+require 'validarComputador.php';
 
 $url = $_SERVER['REQUEST_URI'];
 $header = getallheaders();
 $jwt = new MyJWT();
 $token =$header['Authorization'];
-function validarPC($fonte, $placa_mae, $placaVideo, $qtdPlacasVideo,  $memoria_ram, $qtdMemorias, $armazenamento, $qtdArmazenamento, $processador){
-    if($processador->soquete != $placa_mae->soquete){
 
-    }
-    if($processador->TDP > $placa_mae->TDP){
-
-    }
-    if($placa_mae->tipoRam != $memoria_ram->tipo){
-
-    }
-    if($qtdMemorias > $placa_mae->slotsRam){
-
-    }
-    if($qtdMemorias = 0){
-
-    }
-    if($qtdPlacasVideo > $placa_mae->slotsPCI){
-
-    }
-    if($qtdPlacasVideo > 1 and $placaVideo->SLICrossfire == 0){
-
-    }
-    if($fonte->potencia < ($placaVideo->potencia * $qtdPlacasVideo)){
-
-    }
-}
 if($token != ""){
     if($jwt->decode($token, SENHA)){
         if($_SERVER['REQUEST_METHOD'] == "POST"){
             $body = json_decode(file_get_contents('php://input'));
             if($body){
-                $fonte = buscarItem("fontes", $body->powerSupplyId);
-                $placa_mae = buscarItem("placas_mae", $body->motherboardId);
-                $placaVideo = buscarItem("placasvideo", $body->graphicCardId);
+                $fonte = json_decode(buscarItem("power-supplies", $body->powerSupplyId));
+                $placa_mae = json_decode(buscarItem("motherboards", $body->motherboardId));
+                $placaVideo = json_decode(buscarItem("graphic-cards", $body->graphicCardId));
                 $qtdPlacasVideo = $body->graphicCardAmount;
-                $memoria_ram = buscarItem("memorias_ram", $body->ramMemoryId);
+                $memoria_ram = json_decode(buscarItem("ram-memories", $body->ramMemoryId));
                 $qtdMemorias = $body->ramMemoryAmount;
-                $armazenamento = buscarItem("armazenamentos", $body->storageDevices[0]);
+                $armazenamento = json_decode(buscarItem("storage-devices", $body->storageDevices[0]));
                 $qtdArmazenamento = $body->storageDevices[1];
-                $processador = buscarItem("processadores", $body->processorId);
+                $processador = json_decode(buscarItem("processors", $body->processorId));
+                echo validarPC($fonte,$placa_mae, $placaVideo, $qtdPlacasVideo, $memoria_ram, $qtdMemorias, $armazenamento, $qtdArmazenamento, $processador);
             }
         }
     }else{
