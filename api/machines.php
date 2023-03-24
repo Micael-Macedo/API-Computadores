@@ -1,5 +1,6 @@
 <?php
-
+require 'jwt/senha.php';
+require 'jwt/token.php';
 $url = $_SERVER['REQUEST_URI'];
 $header = getallheaders();
 if($_SERVER['REQUEST_METHOD'] == "GET"){
