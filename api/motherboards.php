@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $placas_mae = showItens("placas_mae", $pageSize, $page);
+            echo $placas_mae = showItens("motherboards", $pageSize, $page);
         }
     }else{
         http_response_code(403);

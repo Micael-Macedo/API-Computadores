@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $marcas = showItens("marcas", $pageSize, $page);
+            echo $marcas = showItens("brands", $pageSize, $page);
         }
     }else{
         http_response_code(403);

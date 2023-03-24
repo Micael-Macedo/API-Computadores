@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $armazenamentos = showItens("armazenamentos", $pageSize, $page);
+            echo $armazenamentos = showItens("storage-devices", $pageSize, $page);
         }
     }else{
         http_response_code(403);

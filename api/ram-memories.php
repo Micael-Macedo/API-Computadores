@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $memorias_ram = showItens("memorias_ram", $pageSize, $page);
+            echo $memorias_ram = showItens("ram-memories", $pageSize, $page);
         }
     }else{
         http_response_code(403);

@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $processadores = showItens("processadores", $pageSize, $page);
+            echo $processadores = showItens("processors", $pageSize, $page);
         }
     }else{
         http_response_code(403);

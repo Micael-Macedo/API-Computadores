@@ -5,6 +5,12 @@ require 'jwt/token.php';
 require 'db/index.php';
 
 $url = $_SERVER['REQUEST_URI'];
+$url = explode('%7B', $url);
+$objeto = explode('%7D', $url[1]);
+$objeto = $objeto[0];
+$objetoNome =  explode('%7D', $url[2]);
+$objetoNome = $objetoNome[0];
+
 $header = getallheaders();
 $jwt = new MyJWT();
 $token =$header['Authorization'];
@@ -27,7 +33,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $fontes = showItens("fontes", $pageSize, $page);
+            echo $busca = buscarItemNome($objeto, $objetoNome, $pageSize, $page);
         }
     }else{
         http_response_code(403);

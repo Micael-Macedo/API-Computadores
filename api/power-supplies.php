@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $fontes = showItens("fontes", $pageSize, $page);
+            echo $fontes = showItens("power-supplies", $pageSize, $page);
         }
     }else{
         http_response_code(403);
