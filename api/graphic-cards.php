@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $placasVideo = showItem("placasVideo", $pageSize, $page);
+            echo $placasVideo = showItens("placasVideo", $pageSize, $page);
         }
     }else{
         http_response_code(403);

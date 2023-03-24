@@ -27,7 +27,7 @@ if($token != ""){
                 $pageSize = 20;
                 $page = 1;
             }
-            echo $fontes = showItem("fontes", $pageSize, $page);
+            echo $fontes = showItens("fontes", $pageSize, $page);
         }
     }else{
         http_response_code(403);
