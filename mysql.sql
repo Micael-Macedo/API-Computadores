@@ -1,10 +1,10 @@
 create database AlatechMachines collate=utf8mb4_unicode_ci;
 use AlatechMachines;
-create table marcas(
+create table brands(
 	id int primary key auto_increment,
     nome varchar(255)
 );
-create table placas_mae (
+create table motherboards (
 	id int primary key auto_increment,
     nome varchar(255),
     URLImagem varchar(255), 
@@ -16,9 +16,9 @@ create table placas_mae (
     slotsSata int,
 	slotsM2 int, 
     slotsPCI int,
-    foreign key (marcaId) references marcas(id)
+    foreign key (marcaId) references brands(id)
 );
-create table processadores(
+create table processors(
 	id int primary key auto_increment,
 	nome varchar(255),
     URLImagem varchar(255), 
@@ -29,9 +29,9 @@ create table processadores(
     freqMax varchar(100),
     Qtdcache varchar(100), 
     TDP int,
-    foreign key (marcaId) references marcas(id)
+    foreign key (marcaId) references brands(id)
 );
-create table memorias_ram(
+create table `ram-memories`(
 	id int primary key auto_increment,
 	nome varchar(255),
     URLImagem varchar(255), 
@@ -39,9 +39,9 @@ create table memorias_ram(
 	qtdMemoria varchar(255),
     tipo varchar(4),
     freq varchar(100),
-    foreign key (marcaId) references marcas(id)
+    foreign key (marcaId) references brands(id)
 );
-create table  Armazenamentos(
+create table  `storage-devices`(
 	id int primary key auto_increment,
 	nome varchar(255),
     URLImagem varchar(255), 
@@ -49,9 +49,9 @@ create table  Armazenamentos(
     tipo varchar(3),
     qtdMemoria varchar(255),
     tipoEntrada varchar(4),
-    foreign key (marcaId) references marcas(id)
+    foreign key (marcaId) references brands(id)
 );
-create table  PlacasVideo(
+create table  `graphic-cards`(
 	id int primary key auto_increment,
 	nome varchar(255),
     URLImagem varchar(255), 
@@ -60,34 +60,36 @@ create table  PlacasVideo(
     tipoMemoria varchar(5),
     potMin int,
 	SLICrossfire tinyint,
-    foreign key (marcaId) references marcas(id)
+    foreign key (marcaId) references brands(id)
 );
-create table fontes(
+create table `power-supplies`(
 	id int primary key auto_increment,
 	nome varchar(255),
     URLImagem varchar(255), 
     marcaId int, 
     potencia int,
     classificacao varchar(100),
-    foreign key (marcaId) references marcas(id)
+    foreign key (marcaId) references brands(id)
 );
-create table maquinas (
+create table machines (
 	id int primary key auto_increment,
-    nome varchar(255),
     URLImagem varchar(255), 
     qtdMemoria int,
     RamId int,
     placaMaeId int,
     processadorId int,
+    armazenamentoId int,
     qtdArmazenamento int,
     placaVideoId int, 
     fonteId int,
+    qtdPlacasVideo int,
     
-    foreign key (RamId) references memorias_ram(id),
-	foreign key (placaMaeId) references placas_mae(id),
-    foreign key (processadorId) references processadores(id),
-    foreign key (placaVideoId) references Placasvideo(id),
-    foreign key (fonteId) references fontes(id)
+    foreign key (RamId) references `ram-memories`(id),
+	foreign key (placaMaeId) references motherboards(id),
+    foreign key (processadorId) references processors(id),
+    foreign key (placaVideoId) references `graphic-cards`(id),
+    foreign key (fonteId) references `power-supplies`(id),
+    foreign key (armazenamentoId) references `storage-devices`(id)
 );
 create table usuario(
 	id int primary key auto_increment,
