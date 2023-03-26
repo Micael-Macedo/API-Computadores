@@ -1,13 +1,10 @@
 <?php
-$url = $_SERVER['REQUEST_URI'];
-$header = getallheaders();
-if($_SERVER['REQUEST_METHOD'] == "GET"){
+include("C:/xampp/htdocs/AlatechMachines/Helper/config.php");
+if($method == "GET"){
     $body = json_decode(file_get_contents('php://input'));
     echo $body;
 }
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    require __DIR__.'/jwt/token.php';
-    require __DIR__.'/jwt/senha.php';
+if($method == "POST"){
     $body = json_decode(file_get_contents('php://input'));
     $jwt = new MyJWT();
     $token = $_COOKIE['token'];
@@ -36,11 +33,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         }
     }
 }
-if($_SERVER['REQUEST_METHOD'] == "PUT"){
+if($method == "PUT"){
     $body = json_decode(file_get_contents('php://input'));
     echo $body;
 }
-if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+if($method == "DELETE"){
     $body = json_decode(file_get_contents('php://input'));
     echo $body;
 }

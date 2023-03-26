@@ -56,3 +56,7 @@ class MyJWT{
         }
     }
 }
+$jwt = new MyJWT();
+$header = getallheaders();
+
+$token = $header['Authorization'];

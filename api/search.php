@@ -1,8 +1,6 @@
 <?php
 
-require 'jwt/senha.php';
-require 'jwt/token.php';
-require 'db/index.php';
+include("C:/xampp/htdocs/AlatechMachines/Helper/config.php");
 
 $url = $_SERVER['REQUEST_URI'];
 $url = explode('%7B', $url);
@@ -11,12 +9,9 @@ $objeto = $objeto[0];
 $objetoNome =  explode('%7D', $url[2]);
 $objetoNome = $objetoNome[0];
 
-$header = getallheaders();
-$jwt = new MyJWT();
-$token =$header['Authorization'];
 if($token != ""){
     if($jwt->decode($token, SENHA)){
-        if($_SERVER['REQUEST_METHOD'] == "GET"){
+        if($method == "GET"){
             $body = json_decode(file_get_contents('php://input'));
             if($body){
                 if(!$body->pageSize == ""){

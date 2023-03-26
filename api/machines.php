@@ -1,20 +1,13 @@
 <?php
-require 'validarComputador.php';
-require 'db/index.php';
-require 'jwt/senha.php';
-require 'jwt/token.php';
+include("C:/xampp/htdocs/AlatechMachines/Helper/config.php");
 
-$url = $_SERVER['REQUEST_URI'];
-$header = getallheaders();
-$jwt = new MyJWT();
-$token =$header['Authorization'];
 if($token != ""){
     if($jwt->decode($token, SENHA)){
-        if($_SERVER['REQUEST_METHOD'] == "GET"){
+        if($method == "GET"){
             $body = json_decode(file_get_contents('php://input'));
             echo $body;
         }
-        if($_SERVER['REQUEST_METHOD'] == "POST"){
+        if($method == "POST"){
             $body = json_decode(file_get_contents('php://input'));
             if($body){
                 $urlImagem = $body->imageBase64;
@@ -37,7 +30,7 @@ if($token != ""){
                 
             }
         }
-        if($_SERVER['REQUEST_METHOD'] == "PUT"){
+        if($method == "PUT"){
             $body = json_decode(file_get_contents('php://input'));
             if($body){
                 $urlImagem = $body->imageBase64;
@@ -61,7 +54,7 @@ if($token != ""){
                 
             }
         }
-        if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+        if($method == "DELETE"){
             $body = json_decode(file_get_contents('php://input'));
             $id = $body->id;
             $result = buscarItem("machines", (int) $id);

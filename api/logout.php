@@ -1,11 +1,10 @@
 <?php
-$url = $_SERVER['REQUEST_URI'];
-$header = getallheaders();
-if($_SERVER['REQUEST_METHOD'] == "GET"){
+
+if($method == "GET"){
     $body = json_decode(file_get_contents('php://input'));
     echo $body;
 }
-if($_SERVER['REQUEST_METHOD'] == "POST"){
+if($method == "POST"){
     require __DIR__.'/jwt/token.php';
     require __DIR__.'/jwt/senha.php';
     $body = json_decode(file_get_contents('php://input'));
@@ -36,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         }
     }
 }
-if($_SERVER['REQUEST_METHOD'] == "DELETE"){
+if($method == "DELETE"){
     require 'jwt/senha.php';
     require 'jwt/token.php';
     $jwt = new MyJWT();
