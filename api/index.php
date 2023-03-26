@@ -1,5 +1,5 @@
 <?php
-
+    error_reporting(E_ERROR | E_PARSE);
     $url = (isset($_GET) ? $_GET :'home.php');
     $url = implode($url);
     $url = array_filter(explode('/', $url));
